@@ -9,6 +9,7 @@ Specially designed for image leg/arm hair removal.
 专门为除去照片中腿毛等体毛而设计。  
 <br />
 ![Image](https://github.com/FerryYoungFan/FanselineImageToolbox/blob/master/Images/intro_compare.png)  
+![Image](https://github.com/FerryYoungFan/FanselineImageToolbox/blob/master/Images/DEMO.png)  
 Project link - 项目链接:  
 <a href="https://github.com/FerryYoungFan/FanselineImageToolbox"><font color=#437BB5><u>github.com/FerryYoungFan/FanselineImageToolbox</u></font></a>  
 <br />
