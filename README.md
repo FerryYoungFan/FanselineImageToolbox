@@ -1,5 +1,5 @@
 ![Image](https://github.com/FerryYoungFan/FanselineImageToolbox/blob/master/Images/head.png)
-#### V1.0 Beta
+#### V1.0
 
 
 ---
