@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<a href="./GUI/Help/main_en.html"><font color=#437BB5><u>Back to Homepage</u></font></a>
+<hr>
+<h1>Grabcut</h1>
+An interactive select method for selecting objects automatically.<br/>
+<font color=#9C9642>Press SPACE to move and zoom in/out canvas in this mode.</font>
+<hr>
+<h3>Step 1</h3>
+Draw a rectangle around the skin (object) you want to process (ROI).<br/>
+If you want to reselect the area later, just click on "ROI Select" button and frame select again.<br/>
+You will be waiting for <font color=#9C9642>several seconds </font> before the result shows up.<br/>
+The area that has been selected currently will be marked in red.<br/>
+Grabcut Iteration: higher value will increase the select precision as well as the <font color=#B54643>computing time</font>.<br/>
+<br/>
+<img src="grabcut_frame.png">
+<hr>
+<h3>Step 2</h3>
+The selection maybe not perfect. Then you should mark the skin and the background manually.<br/>
+Firstly, click on the <font color=#B54643>Subtract(-)</font> button and mark the background.<br/>
+Reminder: You can change the brush size before marking.<br/>
+<br/>
+<img src="grabcut_subtract.png">
+<hr>
+<h3>Step 3</h3>
+Secondly, click on the <font color=#40874A>Add(+)</font> button and mark the skin (foreground).<br/>
+<br/>
+<img src="grabcut_add.png">
+<hr>
+<h3>Step 4</h3>
+If you want to adjust the edge of the current selection, you can use the following sliders:<br/>
+* Grow: Expand the edge of current mask (selection).<br/>
+* Contract: Shrink the edge of current mask.<br/><br/>
+* Feather Edge: Smooth and feather the edge of current mask.<br/><br/>
+<font color=#40874A>You can fill small holes by applying grow and contract at the same time (morphological closing).</font>
+<br/><br/>
+<img src="selection_edit_en.png">
+<hr>
+<h3>Step 5</h3>
+You can now apply your current selection to the global selection by clicking the buttons on the right column:<br/>
+<br/>
+<img src="selection_apply_en.png">
+<hr>
+<a href="./GUI/Help/main_en.html"><font color=#437BB5><u>Back to Homepage</u></font></a>

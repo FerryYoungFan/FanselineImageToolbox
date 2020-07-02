@@ -11,9 +11,11 @@ PyQt5: Ver 5.15.0
 
 Project start: June 12, 2020
 Ver 1.0.0: June 27, 2020
+Ver 1.0.1: July 2, 2020
 """
 
 version = "1.0"
+##auto-py-to-exe##
 
 from FansWheels import *
 from PyQtWheels import *
@@ -32,7 +34,6 @@ from InPaint import InPaint
 from FilterSets import FilterSets
 from LanguagePack import *
 
-##auto-py-to-exe##
 lang = None
 
 
@@ -1235,24 +1236,24 @@ class WindowHelp(QtWidgets.QTextBrowser):
         self.path = u"./GUI/Help/"
         self.cdict={
             "cn_s":{
-                "main":"main_cn_s.md",
-                "Grabcut":"grabcut_cn_s.md",
-                "MagicWand":"magic_wand_cn_s.md",
-                "ColorRange":"color_range_cn_s.md",
-                "SelectTools":"select_tools_cn_s.md",
-                "AdjustSelection":"adjust_selection_cn_s.md",
-                "Beeswax":"beeswax_cn_s.md",
-                "about":"about_cn_s.md",
+                "main":"main_cn_s.html",
+                "Grabcut":"grabcut_cn_s.html",
+                "MagicWand":"magic_wand_cn_s.html",
+                "ColorRange":"color_range_cn_s.html",
+                "SelectTools":"select_tools_cn_s.html",
+                "AdjustSelection":"adjust_selection_cn_s.html",
+                "Beeswax":"beeswax_cn_s.html",
+                "about":"about_cn_s.html",
             },
             "en":{
-                "main":"main_en.md",
-                "Grabcut":"grabcut_en.md",
-                "MagicWand":"magic_wand_en.md",
-                "ColorRange":"color_range_en.md",
-                "SelectTools":"select_tools_en.md",
-                "AdjustSelection":"adjust_selection_en.md",
-                "Beeswax":"beeswax_en.md",
-                "about": "about_en.md",
+                "main":"main_en.html",
+                "Grabcut":"grabcut_en.html",
+                "MagicWand":"magic_wand_en.html",
+                "ColorRange":"color_range_en.html",
+                "SelectTools":"select_tools_en.html",
+                "AdjustSelection":"adjust_selection_en.html",
+                "Beeswax":"beeswax_en.html",
+                "about": "about_en.html",
             }
         }
 
