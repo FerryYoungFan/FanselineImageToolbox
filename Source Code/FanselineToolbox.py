@@ -14,7 +14,7 @@ Ver 1.0.0: June 27, 2020
 Ver 1.0.1: July 2, 2020
 """
 
-version = "1.0"
+version = "1.0.1"
 ##auto-py-to-exe##
 
 from FansWheels import *
