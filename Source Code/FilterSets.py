@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from FansWheels import *
 
 """
@@ -5,6 +8,7 @@ Just Some Common Filters
 by FerryYoungFan - Twitter @FanKetchup / @FanBuckle
 Ver1.1: June 30, 2020
 """
+
 
 class FilterSets:
     def __init__(self, img, mask):
@@ -144,41 +148,39 @@ class FilterSets:
             h_center = int(round(newh / 2))
             w_center = int(round(neww / 2))
             center = (w_center, h_center)
-            axes = (int(round(w_center*0.8)),int(round(h_center*0.8)))
+            axes = (int(round(w_center * 0.8)), int(round(h_center * 0.8)))
             cv2.ellipse(self.maskBuffer, center, axes, 0, 0, 360, 0, -1)
             self.maskBuffer = cv2.GaussianBlur(self.maskBuffer, (blurk, blurk), 0)
-            self.maskBuffer = cv2.resize(self.maskBuffer,oldsize)
+            self.maskBuffer = cv2.resize(self.maskBuffer, oldsize)
         else:
-            blurk = int(round(self.max_k)*20)
+            blurk = int(round(self.max_k) * 20)
             if blurk < 1:
                 blurk = 1
             if blurk % 2 == 0:
                 blurk += 1
             h, w = self.img.shape[0], self.img.shape[1]
-            self.maskBuffer = np.ones((h,w),np.uint8)*255
-            h_center = int(round(h/2))
+            self.maskBuffer = np.ones((h, w), np.uint8) * 255
+            h_center = int(round(h / 2))
             w_center = int(round(w / 2))
-            center = (w_center,h_center)
+            center = (w_center, h_center)
             axes = (int(round(w_center * 0.8)), int(round(h_center * 0.8)))
-            cv2.ellipse(self.maskBuffer,center,axes,0,0,360,0,-1)
-            self.maskBuffer = cv2.GaussianBlur(self.maskBuffer,(blurk,blurk),0)
+            cv2.ellipse(self.maskBuffer, center, axes, 0, 0, 360, 0, -1)
+            self.maskBuffer = cv2.GaussianBlur(self.maskBuffer, (blurk, blurk), 0)
 
-
-    def vignette(self,v_vig):
+    def vignette(self, v_vig):
         if v_vig > 0:
-            opacity =  (v_vig/100)*0.3
-            self.buffer = blend_3c(np.asarray(self.maskBuffer*opacity,np.uint8))
-            self.img_out = cv2.subtract(self.img,self.buffer)
+            opacity = (v_vig / 100) * 0.3
+            self.buffer = blend_3c(np.asarray(self.maskBuffer * opacity, np.uint8))
+            self.img_out = cv2.subtract(self.img, self.buffer)
         else:
             opacity = (-v_vig / 100) * 0.3
             self.buffer = blend_3c(np.asarray(self.maskBuffer * opacity, np.uint8))
             self.img_out = cv2.add(self.img, self.buffer)
 
-
-    def denoise(self,v_h,v_hc):
-        h = v_h*3/100
-        hc = v_hc*3/100
-        self.img_out = cv2.fastNlMeansDenoisingColored(self.img,None,h,hc,7,21)
+    def denoise(self, v_h, v_hc):
+        h = v_h * 3 / 100
+        hc = v_hc * 3 / 100
+        self.img_out = cv2.fastNlMeansDenoisingColored(self.img, None, h, hc, 7, 21)
 
     def getImage(self):
         if self.img_out is None:

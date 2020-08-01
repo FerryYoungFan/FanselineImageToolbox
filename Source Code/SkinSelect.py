@@ -1,10 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from FansWheels import *
 
 
 class SkinSelect:
     def __init__(self, img):
         self.firstRun = True
-        self.mode = 0 # 0-color range, 1-otsu
+        self.mode = 0  # 0-color range, 1-otsu
         self.img = blend_3c(img)
         maxsize = 2048
         if max(self.img.shape) > maxsize:
@@ -31,9 +34,8 @@ class SkinSelect:
         self.hsv = cv2.cvtColor(self.img, cv2.COLOR_BGR2HSV_FULL)
         (self.h_c, self.s_c, self.v_c) = cv2.split(self.hsv)
 
-        self.thumbW, self.thumbH = 100,100
-        self.thumb = np.zeros((self.thumbH,self.thumbW,3),np.uint8)
-
+        self.thumbW, self.thumbH = 100, 100
+        self.thumb = np.zeros((self.thumbH, self.thumbW, 3), np.uint8)
 
     def otsuSelect(self, blurk=5):
         """
@@ -60,7 +62,6 @@ class SkinSelect:
         self.mask = cv2.erode(self.mask, kernel, iterations=2)
         self.mask = cv2.dilate(self.mask, kernel, iterations=2)
 
-
     def YCrCbSelect(self):
         self.firstRun = False
         self.mode = 3
@@ -70,7 +71,6 @@ class SkinSelect:
         kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
         self.mask = cv2.erode(self.mask, kernel, iterations=2)
         self.mask = cv2.dilate(self.mask, kernel, iterations=2)
-
 
     def colorRange(self, x, y, hdiff=15, sdiff=120, vdiff=120, soft=30):
         """
@@ -98,7 +98,7 @@ class SkinSelect:
         h_mask = cv2.LUT(h_diff, lookUpTableh)
         s_mask = cv2.LUT(s_diff, lookUpTables)
         v_mask = cv2.LUT(v_diff, lookUpTablev)
-        self.mask = cv2.addWeighted(cv2.addWeighted(v_mask,0.5, s_mask,0.5,0),0.4, h_mask,1.0,0)
+        self.mask = cv2.addWeighted(cv2.addWeighted(v_mask, 0.5, s_mask, 0.5, 0), 0.4, h_mask, 1.0, 0)
 
     def getTable(self, diff, soft):
         lookUpTable = np.zeros((1, 256))
@@ -142,13 +142,11 @@ class SkinSelect:
     def getMask(self):
         return self.mask_f
 
-    def genThumb(self,color):
+    def genThumb(self, color):
         thumb_B = np.zeros((self.thumbH, self.thumbW), np.uint8) + color[0]
         thumb_G = np.zeros((self.thumbH, self.thumbW), np.uint8) + color[1]
         thumb_R = np.zeros((self.thumbH, self.thumbW), np.uint8) + color[2]
-        self.thumb = cv2.merge((thumb_B,thumb_G,thumb_R))
+        self.thumb = cv2.merge((thumb_B, thumb_G, thumb_R))
 
     def getThumb(self):
         return self.thumb
-
-

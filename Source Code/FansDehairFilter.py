@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from FansWheels import *
 
 """
@@ -32,11 +35,11 @@ class FDehair:
         self.img_median = np.zeros(input_img.shape, np.uint8)
 
         self.img_diff = np.zeros(input_img.shape, np.uint8)
-        self.th_min, self.th_max, self.thi_min, self.thi_max,self.soft = 5, 150, 5, 150,25
+        self.th_min, self.th_max, self.thi_min, self.thi_max, self.soft = 5, 150, 5, 150, 25
 
         self.img_binmask = np.zeros(input_img.shape, np.uint8)
 
-        self.default_v = [self.mediank, self.th_min, self.th_max, self.thi_min, self.thi_max,self.soft]
+        self.default_v = [self.mediank, self.th_min, self.th_max, self.thi_min, self.thi_max, self.soft]
 
     def start(self):
         self.firstrun = False
@@ -59,21 +62,21 @@ class FDehair:
             self.mediank += 1
         if self.mediank > 1:
             self.img_median = cv2.medianBlur(self.img, self.mediank)  # Must be an ODD VALUE
-            self.diffmap(self.th_min, self.th_max, self.thi_min, self.thi_max,self.soft)
+            self.diffmap(self.th_min, self.th_max, self.thi_min, self.thi_max, self.soft)
         else:
             self.output = self.img
 
-    def diffmap(self, th_min=5, th_max=150, thi_min=5, thi_max=150,soft=0):
+    def diffmap(self, th_min=5, th_max=150, thi_min=5, thi_max=150, soft=0):
         # Image difference with threshold
-        self.th_min, self.th_max, self.thi_min, self.thi_max,self.soft = th_min, th_max, thi_min, thi_max,soft
+        self.th_min, self.th_max, self.thi_min, self.thi_max, self.soft = th_min, th_max, thi_min, thi_max, soft
         img_median_gray = cv2.cvtColor(self.img_median, cv2.COLOR_BGR2GRAY)
 
-        temp_diff = cv2.subtract(img_median_gray, self.img_gray) # Dark edge (texture)
-        temp_diff_inv = cv2.subtract(self.img_gray, img_median_gray) # Bright edge (texture)
+        temp_diff = cv2.subtract(img_median_gray, self.img_gray)  # Dark edge (texture)
+        temp_diff_inv = cv2.subtract(self.img_gray, img_median_gray)  # Bright edge (texture)
 
         # Using LUT for faster double-sided threshold
-        lookUpTable = self.getTable(self.th_min, self.th_max,self.soft)
-        lookUpTableI = self.getTable(self.thi_min, self.thi_max,self.soft)
+        lookUpTable = self.getTable(self.th_min, self.th_max, self.soft)
+        lookUpTableI = self.getTable(self.thi_min, self.thi_max, self.soft)
         temp_diff = cv2.LUT(temp_diff, lookUpTable)
         temp_diff_inv = cv2.LUT(temp_diff_inv, lookUpTableI)
 
@@ -103,6 +106,9 @@ class FDehair:
         return lookUpTable
 
     def setDefault(self):
-        self.mediank, self.th_min, self.th_max, self.thi_min, self.thi_max,self.soft = self.default_v[0], self.default_v[1], \
-                                                                             self.default_v[2], self.default_v[3], \
-                                                                             self.default_v[4],self.default_v[5]
+        self.mediank, self.th_min, self.th_max, self.thi_min, self.thi_max, self.soft = self.default_v[0], \
+                                                                                        self.default_v[1], \
+                                                                                        self.default_v[2], \
+                                                                                        self.default_v[3], \
+                                                                                        self.default_v[4], \
+                                                                                        self.default_v[5]

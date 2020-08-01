@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from FansWheels import *
 
 """
@@ -47,7 +50,7 @@ class ImageAdj:
         gamma_hl = pow(2, -highlight * 2 / 100)
         gamma_sd = pow(2, -shadow * 2 / 100)
 
-        midpoint = int(31+(1-(highlight + shadow + 200)/400)*(255-63))
+        midpoint = int(31 + (1 - (highlight + shadow + 200) / 400) * (255 - 63))
         print(midpoint)
 
         for i in range(midpoint):

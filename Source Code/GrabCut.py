@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from FansWheels import *
 
 """
@@ -49,13 +52,13 @@ class GCut:
             cv2.grabCut(self.img, self.gbcmask, self.rect, self.bgdmodel,
                         self.fgdmodel, self.iterk, cv2.GC_INIT_WITH_RECT)
             self.newrect = False
-            if len(self.gbcmask[self.gbcmask==1])+ len(self.gbcmask[self.gbcmask==3])== 0:
+            if len(self.gbcmask[self.gbcmask == 1]) + len(self.gbcmask[self.gbcmask == 3]) == 0:
                 self.firstRun = True
                 self.gbcmask = np.zeros(self.img.shape[:2], dtype=np.uint8)
             else:
                 self.firstRun = False
         elif self.drawmask:
-            if len(self.gbcmask[self.gbcmask==1])+ len(self.gbcmask[self.gbcmask==3])== 0:
+            if len(self.gbcmask[self.gbcmask == 1]) + len(self.gbcmask[self.gbcmask == 3]) == 0:
                 self.firstRun = True
                 self.gbcmask = np.zeros(self.img.shape[:2], dtype=np.uint8)
             else:

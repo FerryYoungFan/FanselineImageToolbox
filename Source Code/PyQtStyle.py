@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 stylepack = """
     QWidget {
         background-color: #202020;
@@ -171,7 +174,7 @@ stylepack = """
     }
     """
 
-sliderStyleDefault="""
+sliderStyleDefault = """
         QSlider{
         margin: 0px 10px 10px;
     }
@@ -431,7 +434,6 @@ pushButtonStyle3 = """
     }
 """
 
-
 pushButtonStyle4 = """
     QPushButton {
         background: #40874A;
@@ -454,7 +456,6 @@ pushButtonStyle4 = """
         color:#444444;
     }
 """
-
 
 pushButtonStyle5 = """
     QPushButton {
@@ -499,7 +500,6 @@ pushButtonStyle6 = """
         color:#444444;
     }
 """
-
 
 viewerStyle = """
     QFrame{

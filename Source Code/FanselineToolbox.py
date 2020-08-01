@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
 Fanseline Image Toolbox
 by FerryYoungFan - Twitter @FanKetchup / @FanBuckle
@@ -12,10 +15,10 @@ PyQt5: Ver 5.15.0
 Project start: June 12, 2020
 Ver 1.0.0: June 27, 2020
 Ver 1.0.1: July 2, 2020
+Ver 1.0.2: August 1, 2020
 """
 
-version = "1.0.1"
-##auto-py-to-exe##
+version = "1.0.2"
 
 from FansWheels import *
 from PyQtWheels import *
@@ -59,7 +62,7 @@ def cleanAll():
 class Window(QtWidgets.QWidget):
     def __init__(self):
         super(Window, self).__init__()
-        self.windowName = lang["mainWindowName"]
+        self.windowName = lang["mainWindowName"] + " - v" + version
         self.setWindowTitle(self.windowName)
         setWindowIcons(self)
         self.closeAll = False
@@ -250,8 +253,7 @@ class Window(QtWidgets.QWidget):
         self.viewer.fitInView()
         self.hist_show(img_current)
         self.undoButtonCheck()
-        self.windowName = lang["mainWindowName"] + showSize(img_input)
-        self.setWindowTitle(self.windowName)
+        self.setWindowTitle(self.windowName + showSize(img_input))
         self.viewer.mode = 0
         self.viewer.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.setAllButtons(True)
@@ -425,7 +427,7 @@ class Window(QtWidgets.QWidget):
         csepack.startpoint(x, y)
         self.qt_imshow(csepack.getView())
         self.viewer.startDrawing(7)
-        if csepack.mode in [2,3,4]:
+        if csepack.mode in [2, 3, 4]:
             csepack.lineThick = self.viewer.getSelectBrushSize()
 
     def updateImg(self, img):
@@ -467,11 +469,11 @@ class Window(QtWidgets.QWidget):
 
     def isBusy(self, busyFlag=True):
         if busyFlag:
-            self.setWindowTitle("".join([self.windowName, lang["Computing"]]))
+            self.setWindowTitle(self.windowName + showSize(img_input) + lang["Computing"])
             QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         else:
             QApplication.restoreOverrideCursor()
-            self.setWindowTitle(self.windowName)
+            self.setWindowTitle(self.windowName + showSize(img_input))
 
     def crosshairCursor(self, Flag=True):
         if Flag:
@@ -525,7 +527,7 @@ class Window(QtWidgets.QWidget):
 
     def showHelloScreen(self):
         try:
-            img = cv_imread(r"./GUI/Image/HelloScreen.png")
+            img = cv_imread(getPath("GUI/Image/HelloScreen.png"))
             if img is None:
                 raise FileNotFoundError
         except FileNotFoundError:
@@ -537,8 +539,7 @@ class Window(QtWidgets.QWidget):
             self.viewer.setDragMode(QtWidgets.QGraphicsView.NoDrag)
             self.viewer.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
             self.hist_show(None)
-            self.windowName = lang["mainWindowName"] + " - " + lang["Welcome!"]
-            self.setWindowTitle(self.windowName)
+            self.setWindowTitle(self.windowName + " - " + lang["Welcome!"])
 
     def setAllButtons(self, flag=True):
         self.window_menu_r.btn_dehair.setEnabled(flag)
@@ -689,7 +690,7 @@ class WindowMenu_L(QtWidgets.QWidget):
             self.mainWindow.updateMask(tempmask)
 
     def btn_cselect_release(self):
-        global csepack, mask_view, taskState,maxUndoSize
+        global csepack, mask_view, taskState, maxUndoSize
         csepack = CSelect(mask_view)
         csepack.maxUndoSize = maxUndoSize
         csepack.setMode(4)
@@ -1231,28 +1232,30 @@ class WindowHelp(QtWidgets.QTextBrowser):
         self.mainWindow = mainWindow
         self.setStyleSheet(stylepack)
         self.zoomIn(4)
-        self.setViewportMargins(15,15,15,15)
+        self.setViewportMargins(15, 15, 15, 15)
         self.setOpenExternalLinks(True)
-        self.path = u"./GUI/Help/"
-        self.cdict={
-            "cn_s":{
-                "main":"main_cn_s.html",
-                "Grabcut":"grabcut_cn_s.html",
-                "MagicWand":"magic_wand_cn_s.html",
-                "ColorRange":"color_range_cn_s.html",
-                "SelectTools":"select_tools_cn_s.html",
-                "AdjustSelection":"adjust_selection_cn_s.html",
-                "Beeswax":"beeswax_cn_s.html",
-                "about":"about_cn_s.html",
+        self.path = "GUI/Help/"
+        self.setSearchPaths([getPath(self.path)])
+        print(QtCore.QUrl.fromLocalFile(getPath(self.path)).toString())
+        self.cdict = {
+            "cn_s": {
+                "main": "main_cn_s.html",
+                "Grabcut": "grabcut_cn_s.html",
+                "MagicWand": "magic_wand_cn_s.html",
+                "ColorRange": "color_range_cn_s.html",
+                "SelectTools": "select_tools_cn_s.html",
+                "AdjustSelection": "adjust_selection_cn_s.html",
+                "Beeswax": "beeswax_cn_s.html",
+                "about": "about_cn_s.html",
             },
-            "en":{
-                "main":"main_en.html",
-                "Grabcut":"grabcut_en.html",
-                "MagicWand":"magic_wand_en.html",
-                "ColorRange":"color_range_en.html",
-                "SelectTools":"select_tools_en.html",
-                "AdjustSelection":"adjust_selection_en.html",
-                "Beeswax":"beeswax_en.html",
+            "en": {
+                "main": "main_en.html",
+                "Grabcut": "grabcut_en.html",
+                "MagicWand": "magic_wand_en.html",
+                "ColorRange": "color_range_en.html",
+                "SelectTools": "select_tools_en.html",
+                "AdjustSelection": "adjust_selection_en.html",
+                "Beeswax": "beeswax_en.html",
                 "about": "about_en.html",
             }
         }
@@ -1260,9 +1263,10 @@ class WindowHelp(QtWidgets.QTextBrowser):
     def show(self, content=None):
         global config
         try:
-            docfile = self.path+self.cdict[config["language"]][content]
-            self.setSource(QtCore.QUrl(docfile))
-            if self.toPlainText() =="":
+            docfile = self.cdict[config["language"]][content]
+            print(QtCore.QUrl(self.path + docfile).toString())
+            self.setSource(QtCore.QUrl(getPath(self.path) + docfile))
+            if self.toPlainText() == "":
                 raise FileNotFoundError
         except:
             self.mainWindow.window_msg.show(lang["Read File Error"], lang["Help document not found"])
@@ -1362,10 +1366,10 @@ class WindowSave_R(QtWidgets.QWidget):
         self.setStyleSheet(stylepack)
 
     def btn_png_release(self):
-        global img_current,img_input
-        if len(img_input.shape)==3 and img_input.shape[2] == 4:
+        global img_current, img_input
+        if len(img_input.shape) == 3 and img_input.shape[2] == 4:
             print("test")
-            self.mainWindow.writeImage(blend_4c(img_current,img_input[:, :, 3]), "png")
+            self.mainWindow.writeImage(blend_4c(img_current, img_input[:, :, 3]), "png")
         else:
             self.mainWindow.writeImage(img_current, "png")
         self.close()
@@ -2033,7 +2037,6 @@ class WindowCSelect_R(QtWidgets.QWidget):
 
     def btn_help_release(self):
         self.mainWindow.window_help.show("SelectTools")
-
 
 
 class WindowAdjMask_L(QtWidgets.QWidget):
@@ -2740,7 +2743,7 @@ class WindowFilters_R(QtWidgets.QWidget):
         self.btn_sharps = genButton(self, lang["Simple Sharpen"], None, self.btn_sharps_release)
         self.btn_pixel = genButton(self, lang["Pixelation"], None, self.btn_pixel_release)
         self.btn_vig = genButton(self, lang["Vignette"], None, self.btn_vig_release)
-        self.btn_denoise = genButton(self, lang["Denoise (Slow)"], None, self.btn_denoise_release,style=6)
+        self.btn_denoise = genButton(self, lang["Denoise (Slow)"], None, self.btn_denoise_release, style=6)
 
         self.btn_apply = genButton(self, lang["Apply"], None, self.btn_apply_release, "Return", style=2)
         self.btn_cancel = genButton(self, lang["Cancel"], None, self.btn_cancel_release, "Escape")
@@ -2880,7 +2883,7 @@ class WindowFilters_R(QtWidgets.QWidget):
 def loadConfig():
     global config, lang, maxUndoSize
     try:
-        with open('GUI/config.pickle', 'rb') as handle:
+        with open(getPath('GUI/config.pickle'), 'rb') as handle:
             config = pickle.load(handle)
             print(config)
     except:
@@ -2898,11 +2901,17 @@ def loadConfig():
 def saveConfig():
     global config
     try:
-        with open('GUI/config.pickle', 'wb') as handle:
+        with open(getPath('GUI/config.pickle'), 'wb') as handle:
             pickle.dump(config, handle, protocol=pickle.HIGHEST_PROTOCOL)
             print("save config")
     except:
         print("Cannot Save Config")
+
+
+def getPath(fileName):  # for different operating systems
+    path = os.path.join(os.path.dirname(sys.argv[0]), fileName)
+    path = path.replace("\\", "/")
+    return path
 
 
 if __name__ == '__main__':
@@ -2943,7 +2952,7 @@ if __name__ == '__main__':
         appMainWindow.resize(1080, 640)
         appMainWindow.show()
         appMainWindow.showHelloScreen()
-        #appMainWindow.loadImage(r"./Sample/香菇腿子原图.jpg")
+        # appMainWindow.loadImage(r"./Sample/香菇腿子原图.jpg")
 
 
     config = {

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Language Package for Fanseline Image Toolbox
 
 lang_cn_s = {
@@ -157,7 +160,7 @@ lang_cn_s = {
     "Steps": "步数",
     "About": "关于",
     "Take Effect After Restart": "*重启软件后生效",
-"Help document not found":"帮助文件未找到！",
+    "Help document not found": "帮助文件未找到！",
 
 }
 
@@ -318,5 +321,5 @@ lang_en = {
     "Steps": "Steps",
     "About": "About",
     "Take Effect After Restart": "*Take Effect After Restart",
-"Help document not found":"Help document not found!",
+    "Help document not found": "Help document not found!",
 }

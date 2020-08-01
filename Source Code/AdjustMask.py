@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from FansWheels import *
 
 
@@ -15,7 +18,7 @@ class MaskAdj:
         self.blurk = 1
         self.alpha = 100
 
-    def edgeModify(self, diak=None, erok=None, blurk=None,alpha = None):
+    def edgeModify(self, diak=None, erok=None, blurk=None, alpha=None):
         if diak is not None:
             self.diak = diak
         if erok is not None:
@@ -38,9 +41,9 @@ class MaskAdj:
                 self.blurk += 1
             self.mask_f = cv2.GaussianBlur(self.mask_f, (self.blurk, self.blurk), 0)
         if self.alpha < 100:
-            fac = int(255 - round(255*self.alpha/100))
-            submat = np.ones((self.mask.shape[0],self.mask.shape[1]),dtype=np.uint8)*fac
-            self.mask_f = cv2.subtract(self.mask_f,submat)
+            fac = int(255 - round(255 * self.alpha / 100))
+            submat = np.ones((self.mask.shape[0], self.mask.shape[1]), dtype=np.uint8) * fac
+            self.mask_f = cv2.subtract(self.mask_f, submat)
 
         self.view = preview_mask(self.img, self.mask_f)
 

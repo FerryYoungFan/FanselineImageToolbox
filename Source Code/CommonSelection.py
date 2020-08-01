@@ -1,9 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from FansWheels import *
 
 """
 Select Method - Lasso, Rectangle, Ellipse, Brush
 by FerryYoungFan - Twitter @FanKetchup / @FanBuckle
 """
+
 
 class CSelect:
     def __init__(self, mask_view):
@@ -28,7 +32,7 @@ class CSelect:
         self.x0, self.y0, self.x1, self.y1 = 0, 0, 0, 0
         self.marqueePoints = []
 
-        self.lineColor = (0, 0, 255,255)
+        self.lineColor = (0, 0, 255, 255)
         self.lineThick = 3
 
         self.diak = 0
@@ -68,7 +72,6 @@ class CSelect:
 
         self.edgeModify()
 
-
     def undo(self):
         if self.undoCheck():
             if self.undoPtr > len(self.maskUndoStack) - 1:
@@ -105,9 +108,9 @@ class CSelect:
         self.marqueePoints.append((x0, y0))
 
         if not self.INV:
-            self.lineColor = (0, 0, 255,255)
+            self.lineColor = (0, 0, 255, 255)
         else:
-            self.lineColor = (255, 0, 0,255)
+            self.lineColor = (255, 0, 0, 255)
 
     def pushpoint(self, x, y):
         if self.mode in [1, 4]:
@@ -127,7 +130,7 @@ class CSelect:
 
         self.x1, self.y1 = x, y
 
-    def edgeModify(self,diak=None,erok=None,blurk=None):
+    def edgeModify(self, diak=None, erok=None, blurk=None):
         if diak is not None:
             self.diak = diak
         if erok is not None:
@@ -148,7 +151,7 @@ class CSelect:
         self.view = preview_mask(self.img, self.mask_f)
         self.view_d = self.view
 
-    def setMode(self,mode):
+    def setMode(self, mode):
         self.mode = mode
 
     def getMask(self):

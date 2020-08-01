@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import cv2
 import numpy as np
 
@@ -72,7 +75,7 @@ def blend_combine(imgf, imgb):
     bn = np.uint8(bf * fcoeff + bb * bcoeff)
     gn = np.uint8(gf * fcoeff + gb * bcoeff)
     rn = np.uint8(rf * fcoeff + rb * bcoeff)
-    an = np.uint8((fcoeff + bcoeff)*255)
+    an = np.uint8((fcoeff + bcoeff) * 255)
     img_4c = cv2.merge((bn, gn, rn, an))
     return img_4c
 
@@ -86,7 +89,7 @@ def preview_mask(img, mask, maskcolor=(0, 0, 255), maskalpha=0.35):
     fg_b = np.asarray(mask / 255.0 * maskcolor[0], np.uint8)
     fg_g = np.asarray(mask / 255.0 * maskcolor[1], np.uint8)
     fg_r = np.asarray(mask / 255.0 * maskcolor[2], np.uint8)
-    return cv2.addWeighted(blend_3c(img), 1-maskalpha, cv2.merge((fg_b, fg_g, fg_r)), maskalpha, 0)
+    return cv2.addWeighted(blend_3c(img), 1 - maskalpha, cv2.merge((fg_b, fg_g, fg_r)), maskalpha, 0)
 
 
 def getHist(img=None):
@@ -116,12 +119,17 @@ def getHist(img=None):
     result = cv2.resize(result, (160, 80))
     return result
 
-def resize_max(img,maxlength):
-    ratio = maxlength / max(img.shape[0],img.shape[1])
-    newh = int(round(img.shape[0]*ratio))
+
+def resize_max(img, maxlength):
+    ratio = maxlength / max(img.shape[0], img.shape[1])
+    newh = int(round(img.shape[0] * ratio))
     neww = int(round(img.shape[1] * ratio))
-    return cv2.resize(img,(neww,newh))
+    return cv2.resize(img, (neww, newh))
+
 
 def showSize(img):
-    h,w = str(img.shape[0]),str(img.shape[1])
-    return " ("+w+"x"+h+") "
+    try:
+        h, w = str(img.shape[0]), str(img.shape[1])
+        return " (" + w + "x" + h + ") "
+    except:
+        return ""

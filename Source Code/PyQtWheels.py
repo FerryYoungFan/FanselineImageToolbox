@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys, os
 from PyQt5 import QtGui, QtCore, QtWidgets
 import numpy as np
@@ -14,8 +17,7 @@ class PhotoViewer(QtWidgets.QGraphicsView):
         self._zoom = 0
         self._empty = True
         self._scene = QtWidgets.QGraphicsScene(self)
-        self._photo = QtWidgets.QGraphicsPixmapItem()
-        self._photo.setTransformationMode(1)
+        self._photo = PixmapWithDrop(self, parent.loadImage)
 
         self._scene.addItem(self._photo)
         self.parent = parent
@@ -70,7 +72,7 @@ class PhotoViewer(QtWidgets.QGraphicsView):
         if self.hasPhoto():
             rect = QtCore.QRectF(self._photo.pixmap().rect())
             scenerect = self.transform().mapRect(rect)
-            factor =  self._photo.pixmap().width()/scenerect.width()
+            factor = self._photo.pixmap().width() / scenerect.width()
             if factor < 1:
                 return 1
             else:
@@ -178,6 +180,28 @@ class PhotoViewer(QtWidgets.QGraphicsView):
 
     def getPixmap(self):
         return self._photo.pixmap()
+
+
+class PixmapWithDrop(QtWidgets.QGraphicsPixmapItem):
+    def __init__(self, parent, fileEvent=None):
+        super(PixmapWithDrop, self).__init__()
+        self.parent = parent
+        self.setAcceptDrops(True)
+        self.fileEvent = fileEvent
+        self.setTransformationMode(1)
+        self.setShapeMode(1)  # For Drop Event
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls:
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        for url in event.mimeData().urls():
+            if self.fileEvent is not None:
+                self.fileEvent(url.toLocalFile())
+            break
 
 
 def genSlider(window, slName="mySlider", minv=0, maxv=100, stepv=1, value=0, releaseEvent=None, changeEvent=None,
